@@ -2,7 +2,6 @@
 class Person
   attr_reader :name
   attr_accessor :bank_account, :happiness, :hygiene
-
   def initialize(name)
     @name = name
     @bank_account = 25
@@ -10,20 +9,17 @@ class Person
     @hygiene = 8
   end
 
-  def happiness=(happiness)
-    @happiness = self.class.limit_value(happiness)
-  end
-
-  def hygiene=(hygiene)
-    @hygiene = self.class.limit_value(hygiene)
-  end
-
   def happy?
-    happiness > 7
+    happiness> 7
   end
 
   def clean?
     hygiene > 7
+  end
+
+  def get_paid(amount)
+    self.bank_account += amount
+    "all about the benjamins"
   end
 
   def take_bath
@@ -34,7 +30,7 @@ class Person
   def work_out
     self.hygiene -= 3
     self.happiness += 2
-    '♪ another one bites the dust ♫'
+    "♪ another one bites the dust ♫"
   end
 
   def call_friend(friend)
@@ -43,23 +39,26 @@ class Person
     "Hi #{friend.name}! It's #{self.name}. How are you?"
   end
 
-  def get_paid(amount)
-    self.bank_account += amount
-    "all about the benjamins"
-  end
-
   def start_conversation(friend, topic)
     case topic
     when "politics"
-      [self, friend].each { |person| person.happiness -= 2 }
-     "blah blah partisan blah lobbyist"
+      [self, friend].each {|p| p.happiness -= 2 }
+      "blah blah partisan blah lobbyist"
     when "weather"
-      [self, friend].each {|person| person.happiness += 1}
+      [self,friend].each {|p| p.happiness += 1}
       'blah blah sun blah rain'
     else
       'blah blah blah blah blah'
 
     end
+  end
+
+  def hygiene=(hygiene)
+    @hygiene = self.class.limit_value(hygiene)
+  end
+
+  def happiness=(happiness)
+    @happiness=self.class.limit_value(happiness)
   end
 
   def self.limit_value(value)
